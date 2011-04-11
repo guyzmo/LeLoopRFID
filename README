@@ -1,0 +1,78 @@
+Le Loop's Door Control System Proof Of Concept
+
+as installed, coded, built and designed by Guyzmo, for Le Loop Hackerspace
+
+Thanks to Clement and all the friends of Le Loop.
+
+COMPILE ME !
+
+To compile this, you shall verify the PATH to the Wire and i2c arduino libraries in the Makefile.
+The Makefile has been crafted for a MacOS X installation. It shall be compatible with Linux, but
+PATHES will need severe tweaking... Sorry for that.
+
+Please check the IP addresses before sending the code to the Arduino. All are statically addressed.
+And check the PINs in the code to match your needs.
+
+The code is not checking the cards, but will open for every MiFare card you can swipe.
+To enable checking of the card, comment the "#define YES_DOOR" line at the begining of the code.
+
+HACK ME
+
+This code is a first PoC for the lab, with no security embedded at All. It has been designed
+to work with the Ethernet Shield v4. But it works, and if you hack it, please come see us and
+have a beer ;)
+
+MUSIC
+
+The Door bell uses some sound samples taken from Mario (the coin and mushrooms ones).
+
+SERVER SIDE CODE
+
+This code depends on bottle.py (easy_install bottle). 
+And on ircbot.py (Sean B. Palmer, inamidst.com).
+And on pysqlite3.
+
+It connects to an IRC server and a channel in a thread and voices people that enters the door.
+It verify who is opening the door against the embedded sqlite3 database.
+
+TODO
+
+ * write the script to add/remove users from the db. (the code is there, just need 
+to make a standalone command)
+ * improve security and stability
+
+BUGS
+
+Plenty !
+Of course, as this is a work in progress...
+
+but the YES DOOR mode seems to work flawlessly.
+
+LINKS 
+
+ * https://github.com/guyzmo/LeLoopRFID
+ * http://wiki.leloop.org/index.php/LeLoopRFID
+ * http://i.got.nothing.to/post/LeLoopRFID
+ * http://www.stronglink.cn/english/SL030.htm
+ * http://sam.zoy.org/wtfpl/
+
+LICENCE
+
+           DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE 
+                   Version 2, December 2004 
+
+Copyright (C) 2011 Guyzmo <guyzmo at leloop dot org>
+
+Everyone is permitted to copy and distribute verbatim or modified 
+copies of this license document, and changing it is allowed as long 
+as the name is changed. 
+
+           DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE 
+  TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION 
+
+ 0. You just DO WHAT THE FUCK YOU WANT TO. 
+
+
+PS:  you can also pay me some beers ;)
+PS2: I like malted beers
+
