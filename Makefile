@@ -35,10 +35,13 @@
 #
 # $Id$
 
+PORT=/dev/tty.usbmodem411
+
 TARGET = $(notdir $(CURDIR))
 INSTALL_DIR = /Applications/Arduino.app/Contents/Resources/Java
 INSTALL_LIB_DIR = $(INSTALL_DIR)/libraries
-UPLOAD_RATE = 57600
+#UPLOAD_RATE = 57600
+UPLOAD_RATE = 115200
 AVRDUDE_PROGRAMMER = stk500v1
 #MCU = atmega168
 MCU = atmega328p
@@ -50,8 +53,11 @@ LOCAL_LIB_DIR = $(HOME)/Documents/Arduino/libraries
 # for every library you need to use, please add the path to the .cpp file here
 LOCAL_CXX = ./SL018.cpp\
 $(INSTALL_LIB_DIR)/Wire/Wire.cpp\
+$(INSTALL_LIB_DIR)/SPI/SPI.cpp\
 $(INSTALL_LIB_DIR)/Ethernet/Ethernet.cpp\
+$(INSTALL_LIB_DIR)/Ethernet/Server.cpp\
 $(INSTALL_LIB_DIR)/Ethernet/Client.cpp
+
 
 LOCAL_C = $(INSTALL_LIB_DIR)/Ethernet/utility/socket.c\
 $(INSTALL_LIB_DIR)/Ethernet/utility/w5100.c
