@@ -88,13 +88,10 @@ void reset_led(){
 
 void open_door() {
     Serial.println("Door Opened");
-    set_led();
     pinMode(7,OUTPUT);
     digitalWrite(PIN_DOOR, LOW);
     delay(500);
     pinMode(7,INPUT);
-    mushroom_beep();
-    reset_led();
 }
 
 void ether_setup() {
@@ -135,22 +132,56 @@ void verify_entrance() {
 void loop()
 {
   char c='0';
+
   Client client = server.available();
-  rfid.seekTag();
-  if (client.connected()) {
+  while (client.connected()) {
+
+      rfid.seekTag();
       if (rfid.available()) {
           coin_beep();
+          Serial.println("card in");
+          client.print("CARD ");
           client.println(rfid.getTagString());
       }
+
       if (client.available()) {
+          Serial.println("client available");
           c = client.read();
+      } else {
+          c = '0'
       }
+
       if (c == '1') {
-          server.write("OPEN\n");
+          //server.write("OPEN\n");
           Serial.println("OPEN");
+          set_led();
           open_door();
-          server.write("CLOSE\n");
+          if (c == '1')
+            mushroom_beep();
+          else
+            delay(1000);
+          reset_led();
+          //server.write("CLOSE\n");
+      } else if (c == '0') {
+          Serial.println("DENIED");
+          set_led();
+          delay(500);
+          reset_led();
+          delay(500);
+          set_led();
+          delay(500);
+          reset_led();
+          if (c == 'F')
+            death_beep();
+      } else if (c == 'I') {
+          death_beep();
+          server.write("System initialized. Please enter the loop.\n");
+          Serial.println("Init...");
       }
+  } 
+
+  if (!client.connected()) {
+      Serial.println("disconnected");
+      client.stop();
   }
 }
-
