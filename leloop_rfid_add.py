@@ -1,9 +1,6 @@
-import telnetlib
-import os
 
+import sys, os
 from sqlite3 import *
-
-serv = telnetlib.Telnet('192.168.42.242')
 
 class MembersDB:
     _schema = '''
@@ -41,23 +38,12 @@ CREATE TABLE member (
         except:
             return None
 
-
-
-
-if __name__ == "__main__":
+if __name__ ==  "__main__":
     db = MembersDB('leloop_members_db.sqlite')
 
-    serv.write("I\n")
-    while True:
-        time.sleep(0.5)
-        ret_str = serv.read_some()
-        ret_str = ret_str.strip()
-        if len(ret_str) != 0 and ret_str[:5] == "CARD ":
-            nick = db.get_user(ret_str[5:])
-            print ret_str[5:], nick
-            if nick is None:
-                serv.write("0\n")
-            else:
-                serv.write("1\n")
-            
+    nick = sys.argv[1]
+    rfid = sys.argv[2]
+
+    db.add_user(nick,rfid)
+    
 
