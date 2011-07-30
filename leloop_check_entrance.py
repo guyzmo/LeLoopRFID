@@ -1,5 +1,5 @@
 import SocketServer
-from leloop_rfid import MembersDB
+from leloop_rfid_model import MembersDB
 from leloop_rfid_open_door import open_door, deny_entrance
 
 global db
